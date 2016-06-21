@@ -5082,6 +5082,10 @@ the event handler.
           <dd>
             A simple and efficient spatialization algorithm using equal-power
             panning.
+            <div class="note">
+              When this panning model is used, all the <a>AudioParam</a> used to
+              compute the output of this node are <a>a-rate</a>.
+            </div>
           </dd>
           <dt>
             HRTF
@@ -5090,6 +5094,10 @@ the event handler.
             A higher quality spatialization algorithm using a convolution with
             measured impulse responses from human subjects. This panning method
             renders stereo output.
+            <div class="note">
+              When this panning model is used, all the <a>AudioParam</a> used to
+              compute the output of this node are <a>k-rate</a>.
+            </div>
           </dd>
         </dl>
         <p>
@@ -5178,21 +5186,30 @@ the event handler.
           </dt>
           <dd>
             Sets the x coordinate position of the audio source in a 3D
-            Cartesian system. The default value is 0. This parameter is a-rate.
+            Cartesian system. The default value is 0. This parameter is
+            <a>a-rate</a> when <a href="#widl-PannerNode-panningModel">
+            panningModel</a> is <code>"equalpower"</code>, <a>k-rate</a>
+            otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam positionY
           </dt>
           <dd>
             Sets the y coordinate position of the audio source in a 3D
-            Cartesian system. The default value is 0. This parameter is a-rate.
+            Cartesian system. The default value is 0. This parameter is
+            <a>a-rate</a> when <a href="#widl-PannerNode-panningModel">
+            panningModel</a> is <code>"equalpower"</code>, <a>k-rate</a>
+            otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam positionZ
           </dt>
           <dd>
             Sets the z coordinate position of the audio source in a 3D
-            Cartesian system. The default value is 0. This parameter is a-rate.
+            Cartesian system. The default value is 0. The default value is 0.
+            This parameter is <a>a-rate</a> when <a
+            href="#widl-PannerNode-panningModel"> panningModel</a> is
+            <code>"equalpower"</code>, <a>k-rate</a> otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam orientationX
@@ -5202,8 +5219,10 @@ the event handler.
             source is pointing in 3D Cartesian coordinate space. Depending on
             how directional the sound is (controlled by the <b>cone</b>
             attributes), a sound pointing away from the listener can be very
-            quiet or completely silent. The default value is 1. This parameter
-            is a-rate.
+            quiet or completely silent. The default value is 1. The default
+            value is 0. This parameter is <a>a-rate</a> when <a
+            href="#widl-PannerNode-panningModel"> panningModel</a> is
+            <code>"equalpower"</code>, <a>k-rate</a> otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam orientationY
@@ -5211,7 +5230,10 @@ the event handler.
           <dd>
             Describes the y component of the vector of the direction the audio
             source is pointing in 3D cartesian coordinate space. The default
-            value is 0. This parameter is a-rate.
+            value is 0. The default value is 0. This parameter is
+            <a>a-rate</a> when <a href="#widl-PannerNode-panningModel">
+            panningModel</a> is <code>"equalpower"</code>, <a>k-rate</a>
+            otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam orientationZ
@@ -5219,7 +5241,10 @@ the event handler.
           <dd>
             Describes the Z component of the vector of the direction the audio
             source is pointing in 3D cartesian coordinate space. The default
-            value is 0. This parameter is a-rate.
+            value is 0. The default value is 0. This parameter is
+            <a>a-rate</a> when <a href="#widl-PannerNode-panningModel">
+            panningModel</a> is <code>"equalpower"</code>, <a>k-rate</a>
+            otherwise.
           </dd><!--<dt> // Distance model and attributes </dt>-->
           <dt>
             attribute DistanceModelType distanceModel
@@ -5358,7 +5383,10 @@ the event handler.
             Sets the x coordinate position of the audio listener in a 3D
             Cartesian coordinate space. <a><code>PannerNode</code></a> objects
             use this position relative to individual audio sources for
-            spatialization. The default value is 0. This parameter is a-rate.
+            spatialization. The default value is 0. This parameter is
+            <a>a-rate</a> when used with a <a>PannerNode</a> that has a <a
+            href="#widl-PannerNode-panningModel">panningModel</a> set to
+            <code>"equalpower"</code>, <a>k-rate</a> otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam positionY
@@ -5366,7 +5394,9 @@ the event handler.
           <dd>
             Sets the y coordinate position of the audio listener in a 3D
             Cartesian coordinate space. The default value is 0. This parameter
-            is a-rate.
+            is <a>a-rate</a> when used with a <a>PannerNode</a> that has a <a
+            href="#widl-PannerNode-panningModel">panningModel</a> set to
+            <code>"equalpower"</code>, <a>k-rate</a> otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam positionZ
@@ -5374,28 +5404,36 @@ the event handler.
           <dd>
             Sets the z coordinate position of the audio listener in a 3D
             Cartesian coordinate space. The default value is 0. This parameter
-            is a-rate.
+            is <a>a-rate</a> when used with a <a>PannerNode</a> that has a <a
+            href="#widl-PannerNode-panningModel">panningModel</a> set to
+            <code>"equalpower"</code>, <a>k-rate</a> otherwise.
+
           </dd>
           <dt>
             readonly attribute AudioParam forwardX
           </dt>
           <dd>
-            The <code>forwardX, forwardY, forwardZ</code> parameters represent
-            a direction vector in 3D space. Both a <code>forward</code> vector
-            and an <code>up</code> vector are used to determine the orientation
-            of the listener. In simple human terms, the <code>forward</code>
-            vector represents which direction the person's nose is pointing.
-            The <code>up</code> vector represents the direction the top of a
+          <p>
+            The <code>forwardX, forwardY, forwardZ</code> parameters represent a
+            direction vector in 3D space. Both a <code>forward</code> vector and
+            an <code>up</code> vector are used to determine the orientation of
+            the listener. In simple human terms, the <code>forward</code> vector
+            represents which direction the person's nose is pointing.  The
+            <code>up</code> vector represents the direction the top of a
             person's head is pointing. These values are expected to be linearly
             independent (at right angles to each other), and unpredictable
             behavior may result if they are not. For normative requirements of
             how these values are to be interpreted, see the <a href=
             "#Spatialization">spatialization section</a>.
-          </dd>
-          <dd>
+          </p>
+          <p>
             Sets the x coordinate component of the forward direction the
             listener is pointing in 3D Cartesian coordinate space. The default
-            value is 0. This parameter is a-rate.
+            value is 0. This parameter is <a>a-rate</a> when used with a
+            <a>PannerNode</a> that has a <a
+            href="#widl-PannerNode-panningModel">panningModel</a> set to
+            <code>"equalpower"</code>, <a>k-rate</a> otherwise.
+          </p>
           </dd>
           <dt>
             readonly attribute AudioParam forwardY
@@ -5403,7 +5441,10 @@ the event handler.
           <dd>
             Sets the y coordinate component of the forward direction the
             listener is pointing in 3D Cartesian coordinate space. The default
-            value is 0. This parameter is a-rate.
+            value is 0. This parameter is <a>a-rate</a> when used with a
+            <a>PannerNode</a> that has a <a
+            href="#widl-PannerNode-panningModel">panningModel</a> set to
+            <code>"equalpower"</code>, <a>k-rate</a> otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam forwardZ
@@ -5411,7 +5452,10 @@ the event handler.
           <dd>
             Sets the z coordinate component of the forward direction the
             listener is pointing in 3D Cartesian coordinate space. The default
-            value is 0. This parameter is a-rate.
+            value is 0.  This parameter is <a>a-rate</a> when used with a
+            <a>PannerNode</a> that has a <a
+            href="#widl-PannerNode-panningModel">panningModel</a> set to
+            <code>"equalpower"</code>, <a>k-rate</a> otherwise.
           </dd>
           <dt>
             readonly attribute AudioParam upX
